@@ -1,0 +1,14 @@
+# Write a code to accept any DNA sequence (of varying lengths) and produce as output the
+# corresponding RNA strand synthesized and protein strand synthesized?
+
+# Sample DNA sequence:
+# gtttcattataccagtttagatctatcgacagggcgttgagtgtgtgcttactcacggct
+# ggcatgtaggtaacagtagtggggaagcgtaacatctgaggcctgactcacatatagagt
+# gtcgaccaaggggtgaagcatcatacgccatacaggcccctagcgaaacgacctagtcta
+# aagacacacgagaatgaaacccgtggacttggttacagcgtaataatctggtcagagctg
+# gtccggcgctggcgatgtaccttacgccactgcaaaccggctttgcagagaacatctggg
+# tacattcccgtgtcatgtcaaagcaggtgattcccgcgaaaaacaattaacgacgcattt
+# gctattgacgaagtcctagttctccgaattgagcgggagacatatgatgtcgagactgca
+# ggaaccgaattatcctgtccgcagatccaatagctcacagaggtaaggggagtgtgatgg
+# tgccctagggtgtttgaacg
+
