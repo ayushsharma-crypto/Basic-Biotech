@@ -69,6 +69,16 @@ def translate(dna_strand):
     '''
     This function convert given dna strand string into its protein strand string
     '''
+    protein_strand = ""
+    dna_length = len(dna_strand)
+    amino_acid_size = 3
+    mod = dna_length%amino_acid_size
+
+    if mod==0:
+        for i in range(0,dna_length,amino_acid_size):
+            protein_strand += AMINO_ACID[dna_strand[i:i+amino_acid_size].upper()]
+        return protein_strand
+
 
 if __name__=="__main__":
     dna_strand = input()
