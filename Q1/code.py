@@ -12,42 +12,37 @@
 # ggaaccgaattatcctgtccgcagatccaatagctcacagaggtaaggggagtgtgatgg
 # tgccctagggtgtttgaacg
 
-
-# We can directly obtain protein_strand from dna_strand, no need for converting it to
-# rna_strand as only changes in the triplet will be that 'T' is replaced by 'U'
-
-
 AMINO_ACID = {
-    'CTA':'L', 'CTC':'L', 'CTG':'L', 'CTT':'L',
-    'CCA':'P', 'CCC':'P', 'CCG':'P', 'CCT':'P',
-    'CAC':'H', 'CAT':'H', 'CAA':'Q', 'CAG':'Q',
-    'CGA':'R', 'CGC':'R', 'CGG':'R', 'CGT':'R',
-    'ATA':'I', 'ATC':'I', 'ATT':'I', 'ATG':'M',
-    'ACA':'T', 'ACC':'T', 'ACG':'T', 'ACT':'T',
-    'AAC':'N', 'AAT':'N', 'AAA':'K', 'AAG':'K',
-    'AGC':'S', 'AGT':'S', 'AGA':'R', 'AGG':'R',
-    'GTA':'V', 'GTC':'V', 'GTG':'V', 'GTT':'V',
-    'GCA':'A', 'GCC':'A', 'GCG':'A', 'GCT':'A',
-    'GAC':'D', 'GAT':'D', 'GAA':'E', 'GAG':'E',
-    'GGA':'G', 'GGC':'G', 'GGG':'G', 'GGT':'G',
-    'TCA':'S', 'TCC':'S', 'TCG':'S', 'TCT':'S',
-    'TTC':'F', 'TTT':'F', 'TTA':'L', 'TTG':'L',
-    'TAC':'Y', 'TAT':'Y', 'TAA':'_', 'TAG':'_',
-    'TGC':'C', 'TGT':'C', 'TGA':'_', 'TGG':'W'
+    "UUU":"Phe","UUC":"Phe","UUA":"Leu","UUG":"Leu",
+    "UGU":"Cys","UGC":"Cys","UGA":"-","UGG":"Trp",
+    "UAU":"Tyr","UAC":"Tyr","UAA":"-","UAG":"-",
+    "UCU":"Ser","UCC":"Ser","UCA":"Ser","UCG":"Ser",
+    "CUU":"Leu","CUC":"Leu","CUG":"Leu","CUA":"Leu",
+    "CGU":"Arg","CGC":"Arg","CGA":"Arg","CGG":"Arg",
+    "CCU":"Pro","CCC":"Pro","CCA":"Pro","CCG":"Pro",
+    "CAU":"His","CAC":"His","CAA":"Gln","CAG":"Gln",
+    "GUU":"Val","GUC":"Val","GUA":"Val","GUG":"Val",
+    "GCU":"Ala","GCC":"Ala","GCA":"Ala","GCG":"Ala",
+    "GGU":"Gly","GGC":"Gly","GGA":"Gly","GGG":"Gly",
+    "GAU":"Asp","GAC":"Asp","GAA":"Glu","GAG":"Glu",
+    "AUU":"Ile","AUC":"Ile","AUA":"Ile","AUG":"Met",
+    "ACU":"Thr","ACC":"Thr","ACA":"Thr","ACG":"Thr",
+    "AGU":"Ser","AGC":"Ser","AGA":"Arg","AGG":"Arg",
+    "AAU":"Asn","AAC":"Asn","AAA":"Lys","AAG":"Lys",
 }
 
-
-RNA = {
-    'A':'U',
-    'T':'A',
-    'C':'G',
-    'G':'C'
+RNA = { # assuming forward DNA strand
+    'A':'A',
+    'T':'U',
+    'C':'C',
+    'G':'G'
 }
 
 NUCLEOTIDES = [ 'A', 'T', 'C', 'G' ]
 
 def verify_dna_strand(dna_strand):
     '''
+    This function will verify dna_strand.
     '''
     for i in range(len(dna_strand)):
         if dna_strand[i].upper() not in NUCLEOTIDES:
@@ -65,19 +60,47 @@ def transcript(dna_strand):
     return rna_strand
 
 
-def translate(dna_strand):
+def translate(rna_strand):
     '''
-    This function convert given dna strand string into its protein strand string
+    This function convert given rna strand string into its protein strand string
     '''
+    MET_INDEX = rna_strand.find('AUG')
+    if MET_INDEX == -1:
+        return "Start Codon Not Found"
+
     protein_strand = ""
-    dna_length = len(dna_strand)
+    t_rna_strand = rna_strand[MET_INDEX:]
+    t_rna_length = len(t_rna_strand)
     amino_acid_size = 3
-    mod = dna_length%amino_acid_size
+    mod = t_rna_length%amino_acid_size
 
     if mod==0:
-        for i in range(0,dna_length,amino_acid_size):
-            protein_strand += AMINO_ACID[dna_strand[i:i+amino_acid_size].upper()]
-        return protein_strand
+        for i in range(0,t_rna_length,amino_acid_size):
+            codon = t_rna_strand[i:i+amino_acid_size].upper()
+            protein = AMINO_ACID[codon]
+            protein_strand += protein
+            if protein=='-':
+                return protein_strand
+    
+    elif mod==1:
+        for i in range(0,t_rna_length-1,amino_acid_size):
+            codon = t_rna_strand[i:i+amino_acid_size].upper()
+            protein = AMINO_ACID[codon]
+            protein_strand += protein
+            if protein=='-':
+                return protein_strand
+        protein_strand+=t_rna_strand[-1]
+    
+    else:
+        for i in range(0,t_rna_length-2,amino_acid_size):
+            codon = t_rna_strand[i:i+amino_acid_size].upper()
+            protein = AMINO_ACID[codon]
+            protein_strand += protein
+            if protein=='-':
+                return protein_strand
+        protein_strand+=t_rna_strand[-2:]
+    
+    return protein_strand
 
 
 if __name__=="__main__":
@@ -86,7 +109,7 @@ if __name__=="__main__":
         print("Unknown DNA Sequence")
         quit()
     rna_strand = transcript(dna_strand)
-    protein_strand = translate(dna_strand)
+    protein_strand = translate(rna_strand)
     print("RNA strand:")
     print(rna_strand)
     print("PROTEIN strand:")
