@@ -35,7 +35,7 @@ for sz in restriction_recognition_site_size:
         if forward_dna_strand[i:i+sz]!=reversed_complement_strand[dna_length-sz-i:dna_length-i]:
             continue
         else:
-            restriction_recognition_site.append(forward_dna_strand[i:i+sz-1])
+            restriction_recognition_site.append(forward_dna_strand[i:i+sz])
             restriction_recognition_site_index.append((i,i+sz))
 
 final_output = []
