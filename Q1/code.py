@@ -12,6 +12,9 @@
 # ggaaccgaattatcctgtccgcagatccaatagctcacagaggtaaggggagtgtgatgg
 # tgccctagggtgtttgaacg
 
+# i.e.
+# gtttcattataccagtttagatctatcgacagggcgttgagtgtgtgcttactcacggctggcatgtaggtaacagtagtggggaagcgtaacatctgaggcctgactcacatatagagtgtcgaccaaggggtgaagcatcatacgccatacaggcccctagcgaaacgacctagtctaaagacacacgagaatgaaacccgtggacttggttacagcgtaataatctggtcagagctggtccggcgctggcgatgtaccttacgccactgcaaaccggctttgcagagaacatctgggtacattcccgtgtcatgtcaaagcaggtgattcccgcgaaaaacaattaacgacgcatttgctattgacgaagtcctagttctccgaattgagcgggagacatatgatgtcgagactgcaggaaccgaattatcctgtccgcagatccaatagctcacagaggtaaggggagtgtgatggtgccctagggtgtttgaacg
+
 AMINO_ACID = {
     "UUU":"Phe","UUC":"Phe","UUA":"Leu","UUG":"Leu",
     "UGU":"Cys","UGC":"Cys","UGA":"-","UGG":"Trp",
