@@ -5,7 +5,7 @@ import re as regex
 
 
 G_SEQ = "PBR322"
-ENZYME = "Nael"
+ENZYME = "NaeI"
 
 # enzyme = Nael, cutting index = 2
 #           | 
