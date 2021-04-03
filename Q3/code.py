@@ -45,4 +45,5 @@ for site in restriction_recognition_site:
 print("Total Pallindromic sites : ",len(final_output))
 print("\nS.No.     Position        Site")
 for i in range(len(final_output)):
-    print(f"{i+1}         {restriction_recognition_site_index[i]}          {final_output[i]}")
+    (s,e) = restriction_recognition_site_index[i]
+    print(f"{i+1}         {(s, e-1)}          {final_output[i]}")
